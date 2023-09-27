@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blackboard.canvas.model.Course;
@@ -44,8 +45,9 @@ public class UserController {
 	}
 	
 	@GetMapping("/getCourses")
-	public List<Course> getCourses(@RequestBody User user) {
-		return userService.getCourses(user);
+	public List<Course> getCourses(@RequestParam("userId") Integer userId) {
+	    // Your logic to fetch courses for the given userId
+		return userService.getCourses(userId);
 	}
 	
 	@GetMapping("/getDiscussionPosts")

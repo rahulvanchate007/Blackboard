@@ -1,6 +1,7 @@
 package com.blackboard.canvas.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,30 +55,28 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ResponseEntity<String> login(User loginUser) {
 		// TODO Auto-generated method stub
-		List<User> allUsers = userRepository.findAll();
-		System.out.println(loginUser.getEmail() + loginUser.getPassword());
-		for (User user : allUsers) {
-			if (loginUser.getEmail().toString().equals(user.getEmail().toString())) {
-				if (loginUser.getPassword().toString().equals(user.getPassword().toString())) {
-					String token = jwtUtil.generateToken(user.getEmail());
-					return ResponseEntity.ok(token);
-				}
-			}
+		Optional<User> userOptional = userRepository.findAll().stream()
+				.filter(user -> user.getEmail().equals(loginUser.getEmail())
+						&& user.getPassword().equals(loginUser.getPassword()))
+				.findFirst();
+
+		if (userOptional.isPresent()) {
+			String token = jwtUtil.generateToken(loginUser.getEmail());
+			return ResponseEntity.ok(token);
+		} else {
+			return ResponseEntity.badRequest().body("Failed");
 		}
-		return ResponseEntity.badRequest().body("Failed");
 	}
 
 	@Override
 	public User updateProfile(User user) {
-			return userRepository.save(user);
+		return userRepository.save(user);
 	}
 
 	@Override
-	public List<Course> getCourses(User user) {
+	public List<Course> getCourses(Integer userId) {
 		// TODO Auto-generated method stub
-		return courseRepository.findAll()
-				.stream()
-				.filter(course -> course.getInstructorId().getId() == user.getId())
+		return courseRepository.findAll().stream().filter(course -> course.getInstructorId().getId() == userId)
 				.collect(Collectors.toList());
 	}
 

@@ -12,7 +12,7 @@ public interface StudentService {
 	
 	public Enrollment enrollment(Enrollment enrollment);
 	
-	public List<Assignment> getAssignments(Course course);
+	public List<Assignment> getAssignments(Course courseId);
 	
 	public AssignmentSubmission submitAssignment(AssignmentSubmission assignmentSubmission);
 	

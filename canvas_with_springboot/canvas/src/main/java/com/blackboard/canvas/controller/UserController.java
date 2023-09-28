@@ -45,7 +45,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/getCourses")
-	public List<Course> getCourses(@RequestParam("userId") Integer userId) {
+	public List<Course> getCourses(@RequestParam("userId") User userId) {
 	    // Your logic to fetch courses for the given userId
 		return userService.getCourses(userId);
 	}

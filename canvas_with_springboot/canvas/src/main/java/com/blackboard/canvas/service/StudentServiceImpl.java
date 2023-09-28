@@ -1,7 +1,6 @@
 package com.blackboard.canvas.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,12 +38,9 @@ public class StudentServiceImpl implements StudentService {
 	}
 	
 	@Override
-	public List<Assignment> getAssignments(Course course) {
+	public List<Assignment> getAssignments(Course courseId) {
 		// TODO Auto-generated method stub
-		return assignmentRepository.findAll()
-				.stream()
-				.filter(assignment -> assignment.getCourseId().getCourseId() == course.getCourseId())
-				.collect(Collectors.toList());
+		return assignmentRepository.findByCourseId(courseId);
 	}
 
 	@Override

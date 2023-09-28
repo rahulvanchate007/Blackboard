@@ -17,12 +17,13 @@ public class JwtUtil {
     private long expiration; // Token expiration time in milliseconds
 
     // Generate a JWT token
-    public String generateToken(String email) {
+    public String generateToken(String role, Integer userId) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + expiration);
 
         return Jwts.builder()
-                .setSubject(email)
+                .setSubject(role)
+                .setSubject(userId.toString())
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, secret)

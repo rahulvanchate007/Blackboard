@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blackboard.canvas.model.Assignment;
@@ -32,9 +33,8 @@ public class StudentController {
 	}
 	
 	@GetMapping("/getAssignments")
-	public List<Assignment> getAssignments(@RequestBody Course course) {
-		return studentService.getAssignments(course);
-		
+	public List<Assignment> getAssignments(@RequestParam("courseId") Course courseId) {
+		return studentService.getAssignments(courseId);
 	}
 	
 	@PostMapping("/submitAssignment")

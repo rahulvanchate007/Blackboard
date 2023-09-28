@@ -16,7 +16,7 @@ public interface UserService {
 
 	public User updateProfile(User user);
 	
-	public List<Course> getCourses(Integer userId);
+	public List<Course> getCourses(User userId);
 	
 	public List<DiscussionPosts> getDiscussionPosts(Course course);
 	
